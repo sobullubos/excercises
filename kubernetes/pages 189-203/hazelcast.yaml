@@ -1,0 +1,45 @@
+#This YAML defines two Kubernetes resources:
+# - A Deployment (runs Hazelcast)
+# - A Service (makes it reachable in the cluster)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hazelcast
+  labels:
+    app: hazelcast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hazelcast
+  template:
+    metadata:
+      labels:
+        app: hazelcast
+    spec:
+      containers:
+      - name: hazelcast
+        image: hazelcast/hazelcast:5.0.2
+        ports:
+        - containerPort: 5701 # The container listens on port 5701
+
+--- # This is a separator between multiple YAML documents in one file.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hazelcast
+spec:
+  selector:
+    app: hazelcast  # The Service sends traffic to Pods with: app: hazelcast
+  ports:
+  - port: 5701
+
+#  Important notes
+# 🔹 This Service is NOT externally accessible
+# Because no type is set:
+# 👉 Default = ClusterIP
+# So:
+
+# ✅ works inside cluster
+# ❌ not reachable via localhost
