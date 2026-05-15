@@ -1,0 +1,15 @@
+# This file defines a Kubernetes Service that exposes your httpbin pods and makes them reachable over the network.
+apiVersion: v1
+kind: Service #  you're creating a Service resource (network access layer)
+metadata:
+  name: httpbin-service
+spec:
+  # Exposes the service on each Kubernetes node
+  # You can access it from outside the cluster using <NodeIP>:<NodePort>
+  type: NodePort
+  selector:
+    app: httpbin # This tells Kubernetes: Send traffic to pods that have this label"
+  ports:
+  - port: 8080 # The port the Service exposes internally
+    targetPort: 80 # traffic goes to port 80 inside the pod. Without this, the nodePort won't work
+    nodePort: 30007 # You can then access the service on your local machine using: http://localhost:30007

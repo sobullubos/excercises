@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-deployment # == The unique deployment name
+  labels:
+    app: httpbin
+spec:
+  replicas: 5 # there should be exactly 5 of the same Pods created
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 0
+  selector: # defines how Deployment finds Pods to manage, in this case, just by the label.
+    matchLabels:
+      app: httpbin
+  template: # defines the specification for each created Pod
+    metadata:
+      labels:
+        app: httpbin # Each Pod is labeled with app: httpbin
+        label: some_new_label
+    spec:
+      containers:
+      - name: httpbin # Each Pod contains a Docker container named httpbin.
+        image: kennethreitz/httpbin # The container runs the kennethreitz/httpbin image.
+        ports:
+        - containerPort: 8080 # The Pod exposes container port 8080 / The container listens on port 8080.
+        readinessProbe:
+          httpGet:
+             path: http://localhost
+             port: 30007
