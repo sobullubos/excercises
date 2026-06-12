@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: yes
+
+- hosts: machine-2
+  tasks:
+    - name: print IP address
+      debug:
+        msg: |
+          {% for host in groups['all'] %}
+          {{ host }}: {{ hostvars[host]['ansible_default_ipv4']['address'] }}
+          {% endfor %}

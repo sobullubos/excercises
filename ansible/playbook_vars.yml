@@ -1,0 +1,10 @@
+---
+- hosts: machine-1
+  become: yes
+  vars:
+    http_port: 80
+
+  tasks:
+    - name: print port number
+      debug:
+        msg: "Port number: {{ http_port }}"
