@@ -1,0 +1,12 @@
+In this directory (ansible) there is the following example:
+
+The simplest command we can run is a ping on all servers. Assuming that we have
+two remote machines (machine-1 and machine-2 - both as docker containers) with SSH servers
+configured and the inventory file (on the machine 'ansible-control', in file 'hosts'), let's execute the
+ping command:
+$ ansible all -m ping
+
+The response should be something like:
+
+machine-1 | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3.10"},"changed": false,"ping": "pong","warnings": ["Platform linux on host machine-1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information."]}
+machine-2 | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3.10"},"changed": false,"ping": "pong","warnings": ["Platform linux on host machine-2 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information."]}
