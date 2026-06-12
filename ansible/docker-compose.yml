@@ -3,25 +3,26 @@ version: '3.8'
 services:
 
   ansible-control:
-    image: ansible-control
+    build: ./ansible-control
     container_name: ansible-control
     networks:
       - ansible-net
     tty: true
+    depends_on:
+      - machine-1
+      - machine-2
 
   machine-1:
-    image: ansible-machine-1
+    build: ./ssh-machine
     container_name: machine-1
     networks:
       - ansible-net
-    tty: true
 
   machine-2:
-    image: ansible-machine-2
+    build: ./ssh-machine
     container_name: machine-2
     networks:
       - ansible-net
-    tty: true
 
 networks:
   ansible-net:
