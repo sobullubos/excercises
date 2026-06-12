@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+  ansible-control:
+    image: ansible-control
+    container_name: ansible-control
+    networks:
+      - ansible-net
+    tty: true
+
+  machine-1:
+    image: ansible-machine-1
+    container_name: machine-1
+    networks:
+      - ansible-net
+    tty: true
+
+  machine-2:
+    image: ansible-machine-2
+    container_name: machine-2
+    networks:
+      - ansible-net
+    tty: true
+
+networks:
+  ansible-net:
+    driver: bridge
