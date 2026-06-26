@@ -1,0 +1,21 @@
+services:
+  terraform:
+    image: zenika/terraform-aws-cli:latest
+    container_name: terraform
+
+    working_dir: /workspace
+
+    volumes:
+      # Your Terraform files
+      - ./terraform:/workspace
+
+      # AWS credentials
+      - ~/.aws:/home/nonroot/.aws:ro
+
+    environment:
+      AWS_DEFAULT_REGION: eu-central-1
+
+    stdin_open: true
+    tty: true
+
+    command: sh
