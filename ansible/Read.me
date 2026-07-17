@@ -1,9 +1,14 @@
-In this directory (ansible) there is the following example:
+In this directory (named ansible) there is the following example:
 
 The simplest command we can run is a ping on all servers. Assuming that we have
 two remote machines (machine-1 and machine-2 - both as docker containers) with SSH servers
-configured and the inventory file (on the machine 'ansible-control', in file 'hosts'), let's execute the
-ping command:
+configured and the inventory file (on the machine 'ansible-control', in file 'hosts')
+
+On the machine: ansible-control execute in the bash:
+export ANSIBLE_HOST_KEY_CHECKING=False
+--> This disables password checking among the containers (is OK for learning purposes)
+
+Let's execute the ping command:
 $ ansible all -m ping
 
 The response should be something like:
